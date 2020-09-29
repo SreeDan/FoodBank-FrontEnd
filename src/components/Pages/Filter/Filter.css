@@ -1,0 +1,36 @@
+.type-search {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 18%;
+    color: black;
+}
+
+.search {
+    position: fixed;
+    top: 64px;
+    left: 18%;
+    width: 82%;
+    color: black;
+}
+
+.filter-instructions {
+    margin-top: 110px;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.filter-results {
+    top: 100px;
+}
+
+@media (max-width: 768px) {
+    .type-search {
+        width: 35%;
+    }
+    .search {
+        left: 35%;
+        width: 65%
+    }
+}

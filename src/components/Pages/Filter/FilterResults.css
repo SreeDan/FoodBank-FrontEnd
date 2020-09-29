@@ -1,0 +1,21 @@
+.filter-all-companies {
+    text-align: center;
+}
+
+.filter-company {
+    text-align: center;
+    margin: 2rem;
+    border-style: solid;
+    border-width: thin;
+    color: rgb(226, 224, 224);
+    padding: 1%
+}
+
+.filter-all-companies h1 {
+    font-size: 20px;
+}
+
+.filter-company a {
+    color: #3c9dbd;
+    text-decoration: none;
+}

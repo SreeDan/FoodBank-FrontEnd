@@ -1,0 +1,117 @@
+.indiv-name {
+    text-align: center;
+    font-size: large;
+    color: #2e9abe;
+}
+
+.indiv-contact {
+    text-align: right;
+    font-size: small;
+    list-style: none;
+    margin: 0.5rem;
+}
+
+.indiv-contact a {
+    text-decoration: none;
+    color: black;
+}
+
+.indiv-request {
+    justify-content: space-between;
+}
+
+.indiv-button-list {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.indiv-button-list li {
+    display: inline;
+    margin: 1rem;
+}
+
+.request-button {
+    background-color: #2e9abe;
+    border: none;
+    color: white;
+    padding: 15px 37px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.donate-button {
+    background-color: #2e9abe;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.donate-button a {
+    text-decoration: none;
+    color: white;
+}
+
+.indiv-post-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center
+}
+
+.indiv-post-list li {
+    display: inline;
+}
+
+.indiv-search {
+    display: inline-block;
+    animation: fadein 1s;
+    width: 79.2%;
+    display: inline-block;
+    text-align: left;
+}
+.indiv-post-button {
+    display: inline-block;
+    animation: fadein 1s;
+    background-color: #2e9abe;
+    border: none;
+    color: white;
+    padding: 11px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.test {
+    margin-top: 1000px;
+}
+
+@media (min-width: 769px) {
+    .indiv-search {
+        width: 90%;
+        left: 5px;
+    }
+    .indiv-post-button {
+        padding: 11px 20px;
+        margin: 4px 8px
+    }
+}

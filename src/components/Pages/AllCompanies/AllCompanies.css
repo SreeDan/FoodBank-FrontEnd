@@ -1,0 +1,24 @@
+.all-companies {
+    text-align: center;
+}
+
+.all-companies h1 {
+    color: #2e9abe;
+}
+.company {
+    text-align: center;
+    margin: 2rem;
+    border-style: solid;
+    border-width: thin;
+    color: rgb(226, 224, 224);
+    padding: 1%
+}
+
+.all-companies h2 {
+    font-size: 20px;
+}
+
+.company a {
+    color: #3c9dbd;
+    text-decoration: none;
+}

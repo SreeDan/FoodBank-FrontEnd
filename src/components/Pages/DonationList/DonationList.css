@@ -1,0 +1,17 @@
+.donation-header {
+    font-size: x-large;
+    text-align: center;
+    color: #2e9abe;
+}
+
+.donation-list {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.donation-list li {
+    font-size: x-large;
+    margin: 1rem;
+}

@@ -1,0 +1,52 @@
+.table-header {
+    text-align: center;
+    font-size: large;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.dashboard-table-food {
+    list-style: none;
+}
+
+.dashboard-modal-header {
+    text-align: center;
+    font-weight: bold;
+}
+
+.dashboard-modal-food {
+    list-style-type: circle;
+}
+
+.request-confirm-div {
+    text-align: center;
+    justify-content: center;
+}
+
+.request-confirm-div button {
+    background-color: #2e9abe;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 15px 37px;
+    align-items: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
