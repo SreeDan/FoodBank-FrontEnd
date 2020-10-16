@@ -6,7 +6,10 @@
     background: #ADD8E6;
     height: 64px;
 }
-
+.toolbar__logo {
+    font-family: Apple Chancery;
+    font-style: italic;
+}
 .toolbar__navigation {
     display: flex;
     height: 100%;

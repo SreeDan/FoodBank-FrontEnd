@@ -27,7 +27,22 @@ input[type=text], input[type=password], select {
 .standard-login-button:hover {
     background-color: #2e9cbeef;
 }
-  
+ 
+.standard-create-button {
+  width: 100%;
+  background-color: #2e9abe;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.standard-create-button:hover {
+  background-color: #2e9cbeef;
+}
+
 .form {
     border-radius: 5px;
     background-color: #c6e9f1;

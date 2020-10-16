@@ -5,6 +5,8 @@ import { useHistory } from 'react-router'
 import Slide from '@material-ui/core/Slide';
 import Cookies from 'universal-cookie';
 import Login from '../Login/Login'
+import PhoneImage from '../../../Resources/FPPProcessPhone.PNG' 
+import DesktopImage from '../../../Resources/FPPProcessDesktop.png'
 import './Home.css'
 
 class Home extends Component {
@@ -57,8 +59,11 @@ class Home extends Component {
             {this.alert()}
             
             <main style={{ marginTop: '64px' }}>
-            <h1>
-                Home
+            <h1 className="phone-image">
+                <img src={PhoneImage} alt="" height="475px" width="350px"></img>
+            </h1>
+            <h1 className="desktop-image">
+                <img src={DesktopImage} alt="" height="500px" width="900"/>
             </h1>
             <div className="home-login">
                 <Login />

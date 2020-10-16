@@ -17,6 +17,7 @@ class Login extends Component {
         var isTrueSet = (cookies.get('signedIn') === 'true')
         console.log(isTrueSet)
         this.state = {
+            create: false,
             user: '',
             password: '',
             redirect: false,
@@ -24,6 +25,7 @@ class Login extends Component {
             severity: '',
             message: '',
             standardSignIn: isTrueSet
+            
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -100,25 +102,33 @@ class Login extends Component {
     }
 
     add(item, type) {
-            if (type == 'user') {
+        if (type == 'user') {
             this.setState({ user: item.target.value })
         } else {
             this.setState({ password: item.target.value })
         }
     }
+
+    createRedirectEvent(event) {
+        this.setState({ create: true })
+    }
     
     render() {
         const cookies = new Cookies()
-        const { redirect, open, severity, message, standardSignIn } = this.state
+        const { redirect, open, severity, message, standardSignIn, create } = this.state
         return (
             <div style={{margin: '80px'}}>
                 {this.setCookie()}
                 {this.type()}
+                {console.log(create)}
                 {
                     redirect && <Redirect to={{
                         pathname: '/',
                         state: { open: open, severity: severity, message: message }
                     }}/>
+                }
+                {
+                    create && <Redirect to={{pathname: '/create'}} />
                 }
                 <div className="login-google-button">
                     <GoogleAuth ableToRedirect={true}/>
@@ -128,8 +138,8 @@ class Login extends Component {
                     <input type="text" id="fusername" name="username" placeholder="Username" onChange={(item) => this.add(item, 'user')} />
                     <label for="lpassword">Password</label>
                     <input type="password" id="lpassword" name="password" placeholder="Password" onChange={(item) => this.add(item, 'password')} />
-                    {/*<input type="submit" value="Login" onClick={this.handleSubmit} />*/}
                     <button onClick={this.handleSubmit} className="standard-login-button">Login</button>
+                    <button onClick={this.createRedirectEvent} className="standard-create-button">Create an Account</button>
                 </div>
             </div>
         )

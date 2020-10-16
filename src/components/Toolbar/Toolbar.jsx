@@ -48,7 +48,8 @@ class Toolbar extends Component {
             <div className = "toolbar__toggle-button">
                 <DrawerToggle click={this.props.drawerClickHandler} />
             </div>
-            <div className="toolbar__logo"><a href="/">THE LOGO</a></div>
+            {/*<div className="toolbar__logo"><a href="/"><img src={this.encode} width="200" height="30" alt="a"></img></a></div>*/}
+            <div className="toolbar__logo"><a href="/">Food Pantry Pickup</a></div>
             <div className="spacer"></div>
             <div className="toolbar_navigation-items">
 

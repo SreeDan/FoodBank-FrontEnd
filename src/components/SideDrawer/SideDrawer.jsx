@@ -1,6 +1,7 @@
 import React from 'react';
 import './SideDrawer.css';
 import GoogleAuth from '../Auth/GoogleAuth';
+import ToolbarLogin from './ToolbarLogin';
 
 const sideDrawer = props => {
     let drawerClasses = 'side-drawer';
@@ -17,11 +18,14 @@ const sideDrawer = props => {
                     <a href="/filter">Filter</a>
                 </li>
                 <li>
-                    <a href="/login">Sign In</a>
+                    <a href="/dashboard">Dashboard</a>
                 </li>
-                <li className="side-drawer-google-button">
+                <li>
+                    <a href="/login"><ToolbarLogin /></a>
+                </li>
+                {/*<li className="side-drawer-google-button">
                     {<GoogleAuth />}
-                </li>
+                </li>*/}
             </ul>
         </nav>
     );

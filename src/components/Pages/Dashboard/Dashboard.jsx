@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Requests from './Requests';
+import isEqual from 'lodash.isequal';
 import './Dashboard.css'
 
 class Dashboard extends Component {
@@ -11,6 +12,13 @@ class Dashboard extends Component {
             bank: false,
             posts: []
         }
+    }
+    
+    name = (userType) => {
+        if (userType == 'bank') {
+            return <h1>Foodbank Dashboard</h1>
+        }
+        return <h1>User Dashboard</h1>
     }
 
     buttonClick = () => {
@@ -40,8 +48,15 @@ class Dashboard extends Component {
         return <button onClick={this.buttonClick} className="dashboard-request-button">Requests sent</button>
     }
 
+    showBox = (userType) => {
+        if (userType == 'bank') {
+            return true;
+        } return false;
+    }
+    
     render() {
         const { showRequests, bank, posts } = this.state
+        console.log(this.showBox())
         return (
             <div style={{ marginTop: '64px' }}>
                 {
@@ -49,10 +64,10 @@ class Dashboard extends Component {
                     posts.map(post => 
                     <div> 
                         <div className="dashboard-header">
-                            <h1>Dashboard</h1>
+                            {this.name(post.userType)}
                         </div>
                         <hr />
-                        <div className="dashboard-info">
+                        {this.showBox(post.userType) && <div className="dashboard-info">
                             <img src={post.image} alt="pfp"/>
                             <ul>
                                 <li>
@@ -65,8 +80,8 @@ class Dashboard extends Component {
                                     Address: {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.Zip}
                                 </li>
                             </ul>
-                        </div>
-                        <hr />
+                        </div>}
+                        {this.showBox(post.userType) && <hr />}
                         <div className="dashboard-requests">
                             <div className="button-block">
                                 {this.requestButton(post.userType)}
