@@ -6,6 +6,7 @@ import Token from './GToken';
 import GoogleButton from 'react-google-button';
 import Cookies from 'universal-cookie';
 import DeleteToken from './DeleteToken';
+import axios from 'axios';
 
 class GoogleAuthToolbar extends Component {
     
@@ -28,6 +29,18 @@ class GoogleAuthToolbar extends Component {
         } catch (error)  {}
     }
   
+    clearCookies = () => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8080/api/v1/company/clear',
+            data: [],
+            withCredentials: true
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
     componentDidMount() {
         window.gapi.load('client:auth2', () => {
             window.gapi.client
@@ -54,6 +67,7 @@ class GoogleAuthToolbar extends Component {
         cookies.set('gsignedIn', true)
         this.auth.signIn()
         this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!' })
+        window.location.reload();
     };
 
     handleSignOut = () => {
@@ -62,6 +76,8 @@ class GoogleAuthToolbar extends Component {
         this.setState({ deleteCookie: true })
         this.setState({ signOutRedirect: true })
         this.auth.signOut()
+        this.clearCookies()
+        window.location.reload(false);
     };
   
     renderAuthButton = () => {

@@ -34,6 +34,7 @@ class Dashboard extends Component {
         })
         .then(response => {
             this.setState({ posts: JSON.parse(JSON.stringify(response.data)) })
+            console.log(response)
             console.log(JSON.parse(response.data['userType']))
         })
         .catch(error => {

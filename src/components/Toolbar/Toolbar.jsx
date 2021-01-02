@@ -5,6 +5,7 @@ import GoogleAuthToolbar from '../Auth/GoogleAuthToolbar';
 import isEqual from 'lodash.isequal';
 import Cookies from 'universal-cookie';
 import './Toolbar.css';
+import axios from 'axios';
 
 class Toolbar extends Component {
     constructor(props) {
@@ -16,10 +17,24 @@ class Toolbar extends Component {
         }
     }
 
+    clearCookies = () => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8080/api/v1/company/clear',
+            data: [],
+            withCredentials: true
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
     logout = () => {
         const cookies = new Cookies()
         cookies.set('signedIn', false)
+        this.clearCookies()
         this.showElement()
+        window.location.reload(false);
     }
 
     showElement = () => {

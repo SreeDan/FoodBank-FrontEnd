@@ -60,7 +60,9 @@ class GoogleAuth extends Component {
     handleSignIn = () => {
         const cookies = new Cookies()
         cookies.set('gsignedIn', true)
-        this.auth.signIn()
+        this.auth.signIn().then(() => {
+            window.location.reload()
+        })
         this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!' })
     };
     

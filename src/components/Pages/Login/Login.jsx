@@ -29,6 +29,7 @@ class Login extends Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.createRedirectEvent = this.createRedirectEvent.bind(this)
     }
 
     handleClick = () => {
@@ -71,7 +72,8 @@ class Login extends Component {
             data: {
                 user: this.state.user,
                 password: this.state.password
-            }
+            },
+            withCredentials: true
         })
         .then(response => {
             const cookies = new Cookies()
@@ -83,6 +85,7 @@ class Login extends Component {
             }
             console.log(response.request.response)
             console.log(this.state.redirect)
+            window.location.reload(false);
         })
         .catch(error => {
             console.log(error)
@@ -109,7 +112,7 @@ class Login extends Component {
         }
     }
 
-    createRedirectEvent(event) {
+    createRedirectEvent() {
         this.setState({ create: true })
     }
     
