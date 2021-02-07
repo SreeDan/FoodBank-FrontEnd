@@ -60,7 +60,7 @@ class Home extends Component {
             
             <main style={{ marginTop: '64px' }}>
             <h1 className="phone-image">
-                <img src={PhoneImage} alt="" height="475px" width="350px"></img>
+                <img src={PhoneImage} alt="" height="475px" width="350px"/>
             </h1>
             <h1 className="desktop-image">
                 <img src={DesktopImage} alt="" height="500px" width="900"/>

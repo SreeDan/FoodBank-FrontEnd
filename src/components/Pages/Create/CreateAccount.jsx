@@ -44,7 +44,7 @@ class Create extends Component {
         } else if (type == 'state') {
             this.setState({ state: item.target.value })
         } else if (type == 'ZIP') {
-            this.setState({ ZIP: this.target.value })
+            this.setState({ ZIP: item.target.value })
         }
     }
 

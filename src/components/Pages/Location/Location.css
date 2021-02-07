@@ -1,0 +1,15 @@
+.alert {
+    background: #ADD8E6;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: xxx-large;
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
