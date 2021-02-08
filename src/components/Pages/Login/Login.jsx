@@ -46,7 +46,7 @@ class Login extends Component {
     
     type = () => {
         const { open, severity, message } = this.state
-        if (isEqual(this.state.severity, 'success') === true) {
+        if (isEqual(severity, 'success') === true) {
 			return (
 				<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={this.handleClose} TransitionComponent={this.Transition} autoHideDuration={6000}>
 					<Alert onClose={this.handleClose} severity={severity}>
@@ -80,18 +80,20 @@ class Login extends Component {
             if (response.request.response == 'true') {
                 this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!', standardSignIn: true })
                 cookies.set('signedIn', true)
-            } else {
-                this.setState({ open: true, severity: 'error', message: 'Invalid username or password' })
             }
             console.log(response.request.response)
             console.log(this.state.redirect)
             window.location.reload(false);
         })
-        .catch(error => {
-            console.log(error)
-            this.setState({ open: true, severity: 'error', message: 'Uh oh! Something went wrong' })
-        })
-        
+            .catch((error) => {
+                console.log(error.response.data.message)
+                if (error.response.data.message == 'Invalid user/pass') {
+                    this.setState({ open: true, severity: 'error', message: 'Invalid Username/Password' })
+                } else {
+                    this.setState({open: true, severity: 'error', message: 'Uh oh! Something went wrong'})
+                }
+            })
+
     }
 
     setCookie = () => {

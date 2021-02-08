@@ -5,6 +5,9 @@ import Cookies from 'cookie'
 import { Redirect } from 'react-router-dom';
 import '../Login/Login.css'
 import Select from 'react-select';
+import {Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import isEqual from 'lodash.isequal';
 
 class Create extends Component {
     constructor(props) {
@@ -24,7 +27,10 @@ class Create extends Component {
             billing: '',
             city : '',
             state: '',
-            ZIP: ''
+            ZIP: '',
+            open: false,
+            severity: '',
+            message: '',
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -52,6 +58,17 @@ class Create extends Component {
         this.setState({ selectedOption })
     }
 
+    type = () => {
+        const { open, severity, message } = this.state
+        return (
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={this.handleClose} TransitionComponent={this.Transition} autoHideDuration={6000}>
+                <Alert onClose={this.handleClose} severity={severity}>
+                    {message}
+                </Alert>
+            </Snackbar>
+        )
+    }
+
     handleSubmit(event) {
         axios({
             method: 'post',
@@ -76,9 +93,15 @@ class Create extends Component {
             console.log(response.request.response)
             console.log(this.state.redirect)
         })
-        .catch(error => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error.response.data.message)
+                if (error.message.data.message == 'Invalid Address') {
+                    this.setState({ open: true, severity: 'error', message: 'Invalid Address' })
+                }
+                if (error.message.data.message == 'API ERROR') {
+                    this.setState({ open: true, severity: 'error', message: 'Error Validating Your Address - Please Try Again Later' })
+                }
+            })
         
     }
 
@@ -92,11 +115,12 @@ class Create extends Component {
                         pathname: '/',
                     }}/>
                 }
+                {this.type()}
                 <div className="login-google-button">
                 </div>
                 <div className="form">
                     <label for="femail">Email</label>
-                    <input type="email" id="femail" name="email" placeholder="Email" onChange={(item) => this.add(item, 'email')}></input>
+                    <input type="email" id="femail" name="email" placeholder="Email" onChange={(item) => this.add(item, 'email')}/>
                     <label for="fusername">Create Username</label>
                     <input type="text" id="fusername" name="username" placeholder="Username" onChange={(item) => this.add(item, 'user')} />
                     <label for="lpassword">Create Password</label>
@@ -111,10 +135,10 @@ class Create extends Component {
                             placeholder="Choose Account Type" 
                         />
                     <label for="laddress">Address</label>
-                    <input type="billing" id="lbilling" name="billing" placeholder="Billing Address (Optional)" onChange={(item) => this.add(item, 'billing')} />
-                    <input type="city" id="lcity" name="city" placeholder="City (Optional)" onChange={(item) => this.add(item, 'city')} />
-                    <input type="state" id="lstate" name="state" placeholder="State Abbreviation (Optional)" onChange={(item) => this.add(item, 'state')} />
-                    <input type="ZIP" id="lzip" name="zip" placeholder="Zip Code (Optional)" onChange={(item) => this.add(item, 'ZIP')} />
+                    <input type="billing" id="lbilling" name="billing" placeholder="Billing Address" onChange={(item) => this.add(item, 'billing')} />
+                    <input type="city" id="lcity" name="city" placeholder="City" onChange={(item) => this.add(item, 'city')} />
+                    <input type="state" id="lstate" name="state" placeholder="State Abbreviation" onChange={(item) => this.add(item, 'state')} />
+                    <input type="ZIP" id="lzip" name="zip" placeholder="Zip Code" onChange={(item) => this.add(item, 'ZIP')} />
                     {/*<input type="submit" value="Login" onClick={this.handleSubmit} />*/}
                     <button onClick={this.handleSubmit} className="standard-create-button">Create Account</button>
                 </div>
