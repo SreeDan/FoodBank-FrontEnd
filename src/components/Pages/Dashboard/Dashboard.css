@@ -33,11 +33,11 @@
     visibility: visible;
 }
 
-.button-block {
+.button-block, .dashboard-edit {
     text-align: center;
 }
 
-.dashboard-request-button {
+.dashboard-request-button, .dashboard-available-button, .edit-button {
     background-color: #2e9abe;
     border: none;
     border-radius: 6px;
@@ -49,6 +49,16 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.file-input {
+    display: inline-block;
+    margin: 25px 10px;
+
+}
+
+.file-upload>input {
+    display: none;
 }
 
 @media (min-width: 320px) and (max-width: 374px) {

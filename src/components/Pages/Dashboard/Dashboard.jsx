@@ -3,12 +3,18 @@ import axios from 'axios';
 import Requests from './Requests';
 import isEqual from 'lodash.isequal';
 import './Dashboard.css'
+import Cookies from 'universal-cookie';
+import { Redirect } from 'react-router-dom';
+import UpdateFood from "./UpdateFood";
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            redirect: false,
+            editRedirect: false,
             showRequests: false,
+            showAvailable: false,
             bank: false,
             posts: []
         }
@@ -21,11 +27,19 @@ class Dashboard extends Component {
         return <h1>User Dashboard</h1>
     }
 
-    buttonClick = () => {
-        this.setState({ showRequests: true })
+    buttonRequestClick = () => {
+        const { showRequests, showAvailable } = this.state
+        this.setState({ showRequests: !showRequests, showAvailable: false })
+    }
+
+    buttonAvailableFood = () => {
+        const { showRequests, showAvailable } = this.state
+        this.setState({ showAvailable: !showAvailable, showRequests: false })
     }
 
     componentDidMount() {
+        const cookies = new Cookies()
+        console.log(cookies.getAll())
         axios({
             method: 'post',
             url: 'http://localhost:8080/api/v1/company/dashboard',
@@ -35,18 +49,28 @@ class Dashboard extends Component {
         .then(response => {
             this.setState({ posts: JSON.parse(JSON.stringify(response.data)) })
             console.log(response)
-            console.log(JSON.parse(response.data['userType']))
+            //console.log(JSON.parse(response.data['userType']))
         })
         .catch(error => {
             console.log(error)
         })
     }
 
+    editButton = () => {
+        this.setState({ editRedirect: true })
+    }
+
     requestButton = (userType) => {
         if (userType == 'bank') {
-            return <button onClick={this.buttonClick} className="dashboard-request-button">Requests received</button>
+            return <button onClick={this.buttonRequestClick} className="dashboard-request-button">Requests received</button>
         }
-        return <button onClick={this.buttonClick} className="dashboard-request-button">Requests sent</button>
+        return <button onClick={this.buttonRequestClick} className="dashboard-request-button">Requests sent</button>
+    }
+
+    availableFoodButton = (userType) => {
+        if (userType === 'bank') {
+            return <button onClick={this.buttonAvailableFood} className="dashboard-available-button">Edit Available Food</button>
+        }
     }
 
     showBox = (userType) => {
@@ -56,8 +80,10 @@ class Dashboard extends Component {
     }
     
     render() {
-        const { showRequests, bank, posts } = this.state
-        console.log(this.showBox())
+        const { redirect, showRequests, showAvailable, editRedirect, bank, posts } = this.state
+
+        if (redirect) return <Redirect to="/" />
+
         return (
             <div style={{ marginTop: '64px' }}>
                 {
@@ -83,12 +109,21 @@ class Dashboard extends Component {
                             </ul>
                         </div>}
                         {this.showBox(post.userType) && <hr />}
+                        <div className="dashboard-edit">
+                            <button onClick={this.editButton} className="edit-button">Edit Profile</button>
+                            {editRedirect && <Redirect to={{
+                                pathname: '/dashboard/edit',
+                                state: { userType: post.userType }
+                            }}/>}
+                        </div>
                         <div className="dashboard-requests">
                             <div className="button-block">
                                 {this.requestButton(post.userType)}
+                                {this.availableFoodButton(post.userType)}
                             </div>
                             {console.log(post.userType)}
                             {showRequests && <Requests bank={post.userType} />}
+                            {showAvailable && <UpdateFood bank={post.userType} />}
                         </div>
                     </div>) :
                     null

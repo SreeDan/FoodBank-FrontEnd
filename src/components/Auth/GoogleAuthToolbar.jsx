@@ -64,7 +64,7 @@ class GoogleAuthToolbar extends Component {
   
     handleSignIn = () => {
         const cookies = new Cookies()
-        cookies.set('gsignedIn', true)
+        cookies.set('gsignedIn', true, {path: '/'})
         this.auth.signIn()
         this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!' })
         window.location.reload();
@@ -72,7 +72,7 @@ class GoogleAuthToolbar extends Component {
 
     handleSignOut = () => {
         const cookies = new Cookies()
-        cookies.set('gsignedIn', false)
+        cookies.set('gsignedIn', false, {path: '/'})
         this.setState({ deleteCookie: true })
         this.setState({ signOutRedirect: true })
         this.auth.signOut()

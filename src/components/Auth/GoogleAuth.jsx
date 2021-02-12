@@ -52,14 +52,14 @@ class GoogleAuth extends Component {
   
     handleAuthChange = () => {
         const cookies = new Cookies()
-        cookies.set("gsignedIn", this.auth.isSignedIn.get())
+        cookies.set("gsignedIn", this.auth.isSignedIn.get(), {path: '/'})
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
         this.setState({ redirect: this.auth.isSignedIn.get() })
     };
   
     handleSignIn = () => {
         const cookies = new Cookies()
-        cookies.set('gsignedIn', true)
+        cookies.set('gsignedIn', true, {path: '/'})
         this.auth.signIn().then(() => {
             window.location.reload()
         })
@@ -76,7 +76,7 @@ class GoogleAuth extends Component {
 
     handleSignOut = () => {
         const cookies = new Cookies()
-        cookies.set('gsignedIn', false)
+        cookies.set('gsignedIn', false, {path: '/'})
         this.setState({ deleteCookie: true })
         this.setState({ signOutRedirect: true })
         this.auth.signOut()

@@ -79,7 +79,7 @@ class Login extends Component {
             const cookies = new Cookies()
             if (response.request.response == 'true') {
                 this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!', standardSignIn: true })
-                cookies.set('signedIn', true)
+                cookies.set('signedIn', true, {path: '/'})
             }
             console.log(response.request.response)
             console.log(this.state.redirect)
@@ -101,9 +101,11 @@ class Login extends Component {
         const cookies = new Cookies()
         console.log(standardSignIn)
         if (standardSignIn === true) {
-            cookies.set('signedIn', true)
+            cookies.set('signedIn', true, {path: '/'})
         }
-        else { cookies.set('signedIn', false) }
+        else {
+            cookies.set('signedIn', false, {path: '/'})
+        }
     }
 
     add(item, type) {

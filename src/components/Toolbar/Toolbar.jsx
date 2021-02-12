@@ -6,6 +6,7 @@ import isEqual from 'lodash.isequal';
 import Cookies from 'universal-cookie';
 import './Toolbar.css';
 import axios from 'axios';
+import * as path from "path";
 
 class Toolbar extends Component {
     constructor(props) {
@@ -31,16 +32,18 @@ class Toolbar extends Component {
 
     logout = () => {
         const cookies = new Cookies()
-        cookies.set('signedIn', false)
+        cookies.set('signedIn', false, {path: '/'})
+        console.log('logout')
         this.clearCookies()
         this.showElement()
         window.location.reload(false);
     }
 
+
     showElement = () => {
         const cookies = new Cookies()
-
         if (isEqual(cookies.get('signedIn'), 'true') == true) {
+
             return <button onClick={this.logout}>Logout</button>
         } else if (isEqual(cookies.get('gsignedIn'), 'true') == true) {
             console.log("checkpoint google")
@@ -49,6 +52,12 @@ class Toolbar extends Component {
         return <a href="/login">Sign In</a>
     }
 
+    displayDashboard = () => {
+        const cookies = new Cookies()
+        if (isEqual(cookies.get('signedIn'), 'true') == true || isEqual(cookies.get('gsignedIn'), 'true') == true) {
+            return <a href="/dashboard">Dashboard</a>
+        }
+    }
     componentDidUpdate() {
         this.showElement()
     }
@@ -71,7 +80,7 @@ class Toolbar extends Component {
                 <ul>
                     <li><a href="/companies">Food Banks</a></li>
                     <li><a href="/filter">Filter</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li>{this.displayDashboard()}</li>
                     <li>{this.showElement()}</li>
                 </ul>
             </div>

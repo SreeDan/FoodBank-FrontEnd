@@ -1,0 +1,21 @@
+.update-food {
+    display: flex;
+}
+.update-select {
+    left: 0%;
+    width: 90%;
+}
+.update-send {
+    left: 93%;
+    background-color: #2e9abe;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 15px 37px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0px 2px;
+    cursor: pointer;
+}

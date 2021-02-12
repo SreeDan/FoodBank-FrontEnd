@@ -3,7 +3,7 @@
     justify-content: center;
 }
 
-input[type=email], input[type=text], input[type=password], input[type=name], select, input[type=billing], input[type=ZIP] {
+input[type=email], input[type=text], input[type=password], input[type=name], select, input[type=billing], input[type=ZIP], input[type=URL], input[type=phone] {
     width: 100%;
     padding: 12px 14px;
     margin: 6px 0;

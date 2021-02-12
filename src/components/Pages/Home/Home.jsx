@@ -3,7 +3,6 @@ import { Alert } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 import { useHistory } from 'react-router'
 import Slide from '@material-ui/core/Slide';
-import Cookies from 'universal-cookie';
 import Login from '../Login/Login'
 import PhoneImage from '../../../Resources/FPPProcessPhone.PNG' 
 import DesktopImage from '../../../Resources/FPPProcessDesktop.png'
@@ -53,7 +52,6 @@ class Home extends Component {
     }
 
     render() {
-        const cookies = new Cookies()
         return (
         <div>
             {this.alert()}
