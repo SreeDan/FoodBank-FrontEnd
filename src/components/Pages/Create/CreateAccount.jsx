@@ -94,13 +94,7 @@ class Create extends Component {
             console.log(this.state.redirect)
         })
             .catch((error) => {
-                console.log(error.response.data.message)
-                if (error.message.data.message == 'Invalid Address') {
-                    this.setState({ open: true, severity: 'error', message: 'Invalid Address' })
-                }
-                if (error.message.data.message == 'API ERROR') {
-                    this.setState({ open: true, severity: 'error', message: 'Error Validating Your Address - Please Try Again Later' })
-                }
+                this.setState({ open: true, severity: 'error', message: error.response.data.message })
             })
         
     }

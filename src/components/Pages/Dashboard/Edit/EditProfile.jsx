@@ -134,13 +134,8 @@ class EditProfile extends Component {
                 console.log(response)
             })
             .catch(error => {
-                if (error.message.data.message == 'Invalid Address') {
-                    this.setState({ open: true, severity: 'error', message: 'Invalid Address' })
-                }
-                if (error.message.data.message == 'API ERROR') {
-                    this.setState({ open: true, severity: 'error', message: 'Error Validating Your Address - Please Try Again Later' })
-                }
-                console.log(error)
+
+                this.setState({ open: true, severity: 'error', message: error.response.data.message })
             })
     }
 
