@@ -48,7 +48,7 @@ class EditProfile extends Component {
                     billing: response['address']['Street'],
                     city: response['address']['City'],
                     state: response['address']['State'],
-                    ZIP: response['address']['Zip'],
+                    ZIP: response['address']['ZIP'],
                     email: response['email'],
                     user: response['user'],
                     pass: response['pass'],
@@ -134,7 +134,6 @@ class EditProfile extends Component {
                 console.log(response)
             })
             .catch(error => {
-
                 this.setState({ open: true, severity: 'error', message: error.response.data.message })
             })
     }

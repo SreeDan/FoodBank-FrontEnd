@@ -14,7 +14,8 @@ class allCompanies extends Component {
     componentDidMount() {
     axios.get('http://localhost:8080/api/v1/company/')
     .then(response => {
-        this.setState({posts: response.data})
+        this.setState({  posts: response.data  })
+        console.log(response)
     })
     .catch(error => {
         console.log(error)
@@ -50,7 +51,7 @@ class allCompanies extends Component {
                             {post.phone}
                         </div>
                         <div className="address">
-                            {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.Zip}
+                            {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.ZIP}
                         </div>
 
                         </a>

@@ -19,3 +19,37 @@
     color: #3c9dbd;
     text-decoration: none;
 }
+
+.zero-results {
+    background: #ADD8E6;
+    position: fixed;
+    top: 105px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: xxx-large;
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(100%);
+    transition: transform 1.4s ease-out;
+}
+
+.zero-results.open {
+    transform: translateY(0%);
+}
+
+/*@keyframes Slide_Up {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+ */
+

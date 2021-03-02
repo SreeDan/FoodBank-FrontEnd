@@ -130,7 +130,7 @@ class indivCompany extends Component {
 											<ul className="indiv-contact">
 												<li><a href={"http://" + post.url}>{post.url}</a></li>
 												<li>{post.phone}</li>
-												<li>{post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.Zip}</li>
+												<li>{post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.ZIP}</li>
 											</ul>
 										</div>) :
 									null

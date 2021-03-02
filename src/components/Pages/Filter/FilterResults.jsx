@@ -7,7 +7,9 @@ class FilterResults extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            posts: []
+            posts: [],
+            zeroReturn: false,
+            resultsClasses: 'zero-results'
         }
     }
 
@@ -33,6 +35,13 @@ class FilterResults extends Component {
             })
             .then(response => {
                 this.setState({ posts: JSON.parse(response.request.response) })
+                console.log(response.request.response)
+                console.log(response.request.response.length)
+                if (response.request.response.length === 2) {
+                    this.setState({ zeroReturn: true, resultsClasses: 'zero-results open' })
+                } else {
+                    this.setState({ zeroReturn: false, resultsClasses: 'zero-results' })
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -44,7 +53,7 @@ class FilterResults extends Component {
         this.postData()
     }
     render() {
-        const { posts } = this.state
+        const { posts, zeroReturn } = this.state
         return (
         <div className="filter-all-companies">
             {this.postData()}
@@ -66,12 +75,17 @@ class FilterResults extends Component {
                             {post.phone}
                         </div>
                         <div className="filter-address">
-                            {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.Zip}
+                            {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.ZIP}
                         </div>
                         </a>
                     </div>) :
                     null
                 }
+
+                    <div className={this.state.resultsClasses}>
+                        Sorry, No Foodbanks Were Found With Those Filters :(
+                    </div>
+
                 </h1>
             </div>
             </main>

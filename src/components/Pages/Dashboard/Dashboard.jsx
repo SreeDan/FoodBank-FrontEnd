@@ -104,7 +104,7 @@ class Dashboard extends Component {
                                     Phone: {post.phone}
                                 </li>
                                 <li className="dashboard-address-desktop">
-                                    Address: {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.Zip}
+                                    Address: {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.ZIP}
                                 </li>
                             </ul>
                         </div>}

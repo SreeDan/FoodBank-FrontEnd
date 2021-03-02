@@ -80,6 +80,7 @@ class Toolbar extends Component {
                 <ul>
                     <li><a href="/companies">Food Banks</a></li>
                     <li><a href="/filter">Filter</a></li>
+                    <li><a href="/location">Location Filtering</a></li>
                     <li>{this.displayDashboard()}</li>
                     <li>{this.showElement()}</li>
                 </ul>

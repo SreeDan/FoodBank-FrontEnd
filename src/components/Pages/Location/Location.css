@@ -12,4 +12,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 900;
+}
+
+.parent-state-search {
+    display: flex;
+
+}
+
+.state-search {
+    position: fixed;
+    left: 33%;
+    width: 33%;
+}
+
+.update-state {
+    left: 67%;
+    position: fixed;
+    background-color: #2e9abe;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 15px 37px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0px 2px;
+    cursor: pointer;
 }

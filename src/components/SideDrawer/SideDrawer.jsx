@@ -18,6 +18,9 @@ const sideDrawer = props => {
                     <a href="/filter">Filter</a>
                 </li>
                 <li>
+                    <a href="/location">Location Filtering</a>
+                </li>
+                <li>
                     <a href="/dashboard">Dashboard</a>
                 </li>
                 <li>
