@@ -13,6 +13,7 @@ import Dashboard from './components/Pages/Dashboard/Dashboard';
 import Create from './components/Pages/Create/CreateAccount';
 import Location from './components/Pages/Location/Location';
 import EditProfile from "./components/Pages/Dashboard/Edit/EditProfile";
+import Setup from './components/Pages/Setup/Setup'
 
 class App extends Component {
     state = {
@@ -52,6 +53,7 @@ class App extends Component {
             <Route path={"/dashboard"} exact component={Dashboard} />
             <Route path={"/location"} exact component={Location} />
             <Route path={"/dashboard/edit"} exact component={EditProfile} />
+            <Route path={"/setup"} exact component={Setup} />
         </div>
         </Router>
         );

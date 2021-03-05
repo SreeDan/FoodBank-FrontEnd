@@ -9,7 +9,7 @@ import DeleteToken from './DeleteToken';
 import axios from 'axios';
 
 class GoogleAuthToolbar extends Component {
-    
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
@@ -42,6 +42,7 @@ class GoogleAuthToolbar extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         window.gapi.load('client:auth2', () => {
             window.gapi.client
             .init({

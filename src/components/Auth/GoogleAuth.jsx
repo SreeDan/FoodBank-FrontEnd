@@ -90,7 +90,7 @@ class GoogleAuth extends Component {
             return (
             <div>
                 <button onClick={this.handleSignOut}>Sign Out</button>
-                {<Token token={this.auth.currentUser.get().getAuthResponse().id_token} />}
+                {<Token token={this.auth.currentUser.get().getAuthResponse().id_token} email={this.auth.currentUser.get().getBasicProfile().getEmail()} />}
             </div>
             )
         } else {

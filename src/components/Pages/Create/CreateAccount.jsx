@@ -30,10 +30,11 @@ class Create extends Component {
             ZIP: '',
             open: false,
             severity: '',
-            message: '',
+            message: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     add(item, type) {
         if (type == 'email') {
             this.setState({ email: item.target.value })

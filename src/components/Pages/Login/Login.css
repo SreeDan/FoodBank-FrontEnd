@@ -14,13 +14,14 @@ input[type=email], input[type=text], input[type=password], input[type=name], sel
   }
 
 input[type=city], input[type=state] {
-  width: 45%;
-  padding: 12px 14px;
-  margin: 6px 12px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+    width: 45%;
+    padding: 12px 14px;
+    margin: 6px 12px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
 }
 
 .standard-login-button {
@@ -58,4 +59,10 @@ input[type=city], input[type=state] {
     background-color: #c6e9f1;
     padding: 10px;
     margin: 10px 0;
+}
+
+.header-setup {
+    text-align: center;
+    font-size: xx-large;
+    color: #2e9abe;
 }

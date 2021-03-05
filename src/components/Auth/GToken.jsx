@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import isEqual from 'lodash.isequal';
+import {Redirect} from "react-router-dom";
+import {red} from "@material-ui/core/colors";
 
 class GToken extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            posts: []
+            posts: [],
+            redirectSetup: false
         }
     }
     token = ''
@@ -18,7 +21,8 @@ class GToken extends Component {
                 method: 'post',
                 url: 'http://localhost:8080/api/v1/company/gauthenticate',
                 data: {
-                    token: this.props.token
+                    token: this.props.token,
+                    email: this.props.email
                 },
                 withCredentials: true 
             })
@@ -26,16 +30,28 @@ class GToken extends Component {
                 this.setState({ posts: response })
             })
             .catch(error => {
-                console.log(error)
+                try {
+                    if (error.response.data.message === "No Account") {
+                        this.setState({redirectSetup: true})
+                    }
+                    console.log(error.response.data.message === "No Account")
+                } catch (error) {}
             })
 
         }
     }   
 
     render() {
+        const{ redirectSetup } = this.state
         return (
             <div>
                 {this.Cookie()}
+                {
+                    redirectSetup && <Redirect to={{
+                        pathname: "/setup",
+                        state: { open: true, token: this.props.token, email: this.props.email }
+                    }}/>
+                }
             </div>
         )
     }
