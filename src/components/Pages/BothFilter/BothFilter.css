@@ -4,13 +4,13 @@
 
 .state-search {
     position: fixed;
-    left: 25%;
+    left: 29%;
     width: 33%;
     z-index: 898;
 }
 
 .update-state {
-    left: 60%;
+    left: 65%;
     position: fixed;
     background-color: #2e9abe;
     border: none;
