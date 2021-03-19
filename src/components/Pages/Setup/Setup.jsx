@@ -5,6 +5,7 @@ import Select from "react-select";
 import '../Login/Login.css';
 import {Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
+import Cookies from "universal-cookie";
 
 class Setup extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Setup extends Component {
             name: '',
             selectedOption: [],
             Options : [
-                { value: 'bank', label: 'FoodBank' },
+                { value: 'bank', label: 'Food Bank' },
                 { value: 'consumer', label: 'User' }
             ],
             billing: '',
@@ -31,7 +32,7 @@ class Setup extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    add(item, type) {
+    add(item, type) { //  Updates the values of the text fields in the form
         if (type == 'name') {
             this.setState({ name: item.target.value })
         } else if (type == 'billing') {
@@ -45,11 +46,11 @@ class Setup extends Component {
         }
     }
 
-    handleOptionChange = (selectedOption) => {
+    handleOptionChange = (selectedOption) => { //  Change the selected option for the user type
         this.setState({ selectedOption })
     }
 
-    type = () => {
+    type = () => { //  Displays the alert that was the exception thrown on the back end
         const { open, severity, message } = this.state
         return (
             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={this.handleClose} TransitionComponent={this.Transition} autoHideDuration={6000}>
@@ -60,7 +61,11 @@ class Setup extends Component {
         )
     }
 
-    componentDidMount() {
+    componentDidMount() { //  Sees if this page is supposed to load
+        const cookies = new Cookies()
+        if (cookies.get('gsignedIn') == 'false') {
+            this.setState({ redirectHome: true })
+        }
         try {
             this.setState({ token: this.props.location.state.token, email: this.props.location.state.email })
         } catch (error) {
@@ -68,7 +73,7 @@ class Setup extends Component {
         }
     }
 
-    handleSubmit() {
+    handleSubmit() { //  Sends the POST request to the back end that sets up the account
         axios({
             method: 'post',
             url: 'http://localhost:8080/api/v1/company/gaccount',
@@ -96,10 +101,10 @@ class Setup extends Component {
         return (
             <div style={{margin: '80px'}}>
                 {
-                    redirectHome && <Redirect to="/" />
+                    redirectHome && <Redirect to="/" /> //  Redirect to the homepage
                 }
                 <h1 className="header-setup">Setup Your Account</h1>
-                <div className="form">
+                <div className="form"> {/* Form for setting up an account */}
                     <label htmlFor="lname">Name</label>
                     <input type="name" id="lname" name="name" placeholder="Name"
                            onChange={(item) => this.add(item, 'name')}/>

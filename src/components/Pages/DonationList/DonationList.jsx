@@ -11,7 +11,7 @@ class DonationList extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount() {  //  Gets food that the food bank said needs to be donated
         const { match: { params } } = this.props
         axios.get(`http://localhost:8080/api/v1/company/${params.userId}/needed`)
         .then(response => {
@@ -28,7 +28,7 @@ class DonationList extends Component {
             <div>
                 <main style={{marginTop: '80px'}}>
                     <h1 className="donation-header">
-                        <h2>Our foodbank needs the following items</h2>
+                        <h2>Our food bank needs the following items</h2>
                     </h1>
                     <hr />
                     <div className="donation-food">
@@ -39,7 +39,7 @@ class DonationList extends Component {
                                     <li>
                                         {post.neededFood.map((value, index) => {
                                             return <li key={index}>{value}</li>
-                                        })}
+                                        })} {/* Displays the list */}
                                     </li>
                                 </ul>
                             ) :

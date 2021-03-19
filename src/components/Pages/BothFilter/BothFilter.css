@@ -1,32 +1,16 @@
-.alert {
-    background: #ADD8E6;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-size: xxx-large;
-    line-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 900;
-}
-
 .parent-state-search {
     display: flex;
 }
 
 .state-search {
     position: fixed;
-    left: 33%;
+    left: 25%;
     width: 33%;
+    z-index: 898;
 }
 
 .update-state {
-    left: 67%;
+    left: 60%;
     position: fixed;
     background-color: #2e9abe;
     border: none;
@@ -39,4 +23,23 @@
     font-size: 16px;
     margin: 0px 2px;
     cursor: pointer;
+    z-index: 898;
+}
+
+.filter-instructions {
+    margin-top: 50px;
+}
+
+.both-filter-company {
+    text-align: center;
+}
+
+.both-filter-company h1 {
+    font-size: 20px;
+    list-style: none;
+}
+
+.both-filter-company li {
+    display: inline-grid;
+    flex-wrap: nowrap;
 }

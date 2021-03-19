@@ -20,7 +20,8 @@ class GoogleAuthToolbar extends Component {
             severity: '',
             message: '',
             deleteCookie: false,
-            signOutRedirect: false
+            signOutRedirect: false,
+            key: '',
         }
         try {
             this.props.ableToRedirect = this.state.ableToRedirect
@@ -28,25 +29,13 @@ class GoogleAuthToolbar extends Component {
             console.log(this.state.open)
         } catch (error)  {}
     }
-  
-    clearCookies = () => {
-        axios({
-            method: 'get',
-            url: 'http://localhost:8080/api/v1/company/clear',
-            data: [],
-            withCredentials: true
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    }
 
     componentDidMount() {
         this._isMounted = true;
-        window.gapi.load('client:auth2', () => {
+        window.gapi.load('client:auth2', () => { //  Loads the client
             window.gapi.client
             .init({
-                clientId: 'your-client-id',
+                clientId: '892653406922-k0jle74fkvr92vs2ju7a2e7gi6h92738.apps.googleusercontent.com',
                 scope: 'email',
             })
             .then(() => {
@@ -58,12 +47,12 @@ class GoogleAuthToolbar extends Component {
         });
     }
   
-    handleAuthChange = () => {
+    handleAuthChange = () => { //  Handle whether iSignedIn is true or false
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
         this.setState({ redirect: this.auth.isSignedIn.get() })
     };
   
-    handleSignIn = () => {
+    handleSignIn = () => { //  Sets the gsignedIn cookie to true and logs the user in
         const cookies = new Cookies()
         cookies.set('gsignedIn', true, {path: '/'})
         this.auth.signIn()
@@ -71,17 +60,17 @@ class GoogleAuthToolbar extends Component {
         window.location.reload();
     };
 
-    handleSignOut = () => {
+    handleSignOut = () => { //  Sets the gsignedIn cookie to false and sets states to true
         const cookies = new Cookies()
         cookies.set('gsignedIn', false, {path: '/'})
         this.setState({ deleteCookie: true })
         this.setState({ signOutRedirect: true })
         this.auth.signOut()
-        this.clearCookies()
         window.location.reload(false);
+        return <DeleteToken />
     };
   
-    renderAuthButton = () => {
+    renderAuthButton = () => { //  Show the Sign in or Sign out button
         if (this.state.isSignedIn) {
             return (
             <div>
@@ -96,13 +85,6 @@ class GoogleAuthToolbar extends Component {
         }
     }
 
-    delete = () => {
-        const {deleteCookie} = this.state
-        if (deleteCookie) {
-            this.setState({ deleteCookie: false })
-            return <DeleteToken />
-        }
-    }
 
     render() {
         const { open, severity, message, deleteCookie } = this.state
@@ -115,7 +97,6 @@ class GoogleAuthToolbar extends Component {
                         state: { open: open, severity: severity, message: message, refresh: true }
                     }} />
                 }
-                {this.delete()}
             </div>
         )
     }

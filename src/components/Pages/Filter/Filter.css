@@ -4,7 +4,7 @@
     left: 0;
     width: 18%;
     color: black;
-    z-index: 950;
+    z-index: 899;
 }
 
 .search {
@@ -13,7 +13,7 @@
     left: 18%;
     width: 82%;
     color: black;
-    z-index: 950;
+    z-index: 899;
 }
 
 .filter-instructions {

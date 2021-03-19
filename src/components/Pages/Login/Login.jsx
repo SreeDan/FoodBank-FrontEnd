@@ -15,7 +15,6 @@ class Login extends Component {
         super(props);
         const cookies = new Cookies()
         var isTrueSet = (cookies.get('signedIn') === 'true')
-        console.log(isTrueSet)
         this.state = {
             create: false,
             user: '',
@@ -25,7 +24,6 @@ class Login extends Component {
             severity: '',
             message: '',
             standardSignIn: isTrueSet
-            
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +42,7 @@ class Login extends Component {
 	    return <Slide direction="up" {...props} />;
     }
     
-    type = () => {
+    type = () => { //  Displays the alert
         const { open, severity, message } = this.state
         if (isEqual(severity, 'success') === true) {
 			return (
@@ -65,7 +63,7 @@ class Login extends Component {
 		}
     }
 
-    handleSubmit(event) {
+    handleSubmit(event) { //  Sends a POST request to the back end which verifies the credentials and assigns a token
         axios({
             method: 'post',
             url: 'http://localhost:8080/api/v1/company/login',
@@ -77,17 +75,14 @@ class Login extends Component {
         })
         .then(response => {
             const cookies = new Cookies()
-            if (response.request.response == 'true') {
+            if (response.request.response == 'true') { //  Gives the success alert and redirects the user to the home page
                 this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!', standardSignIn: true })
                 cookies.set('signedIn', true, {path: '/'})
             }
-            console.log(response.request.response)
-            console.log(this.state.redirect)
             window.location.reload(false);
         })
             .catch((error) => {
-                console.log(error.response.data.message)
-                if (error.response.data.message == 'Invalid user/pass') {
+                if (error.response.data.message == 'Invalid user/pass') { //  Gives an error alert
                     this.setState({ open: true, severity: 'error', message: 'Invalid Username/Password' })
                 } else {
                     this.setState({open: true, severity: 'error', message: 'Uh oh! Something went wrong'})
@@ -96,10 +91,9 @@ class Login extends Component {
 
     }
 
-    setCookie = () => {
+    setCookie = () => { //  Sets the signedIn cookie
         const { standardSignIn } = this.state
         const cookies = new Cookies()
-        console.log(standardSignIn)
         if (standardSignIn === true) {
             cookies.set('signedIn', true, {path: '/'})
         }
@@ -108,7 +102,7 @@ class Login extends Component {
         }
     }
 
-    add(item, type) {
+    add(item, type) { //  Updates the values of the text fields in the form
         if (type == 'user') {
             this.setState({ user: item.target.value })
         } else {
@@ -127,20 +121,19 @@ class Login extends Component {
             <div style={{margin: '80px'}}>
                 {this.setCookie()}
                 {this.type()}
-                {console.log(create)}
                 {
                     redirect && <Redirect to={{
                         pathname: '/',
                         state: { open: open, severity: severity, message: message }
-                    }}/>
+                    }}/> //  Redirects to the home page
                 }
                 {
-                    create && <Redirect to={{pathname: '/create'}} />
+                    create && <Redirect to={{pathname: '/create'}} /> //  Redirects to the create account page
                 }
                 <div className="login-google-button">
                     <GoogleAuth ableToRedirect={true}/>
                 </div>
-                <div className="form">
+                <div className="form"> {/* Form for Logging in */}
                     <label for="fusername">Username</label>
                     <input type="text" id="fusername" name="username" placeholder="Username" onChange={(item) => this.add(item, 'user')} />
                     <label for="lpassword">Password</label>

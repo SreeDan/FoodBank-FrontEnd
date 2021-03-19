@@ -3,11 +3,16 @@ import axios from 'axios';
 
 class DeleteToken extends Component {
 
-    deleteToken() {
-        axios.get('http://localhost:8080/api/v1/company/gauthenticate')
-        .catch(error => {
-            console.log(error)
+    deleteToken() { //  Deletes the user's token
+        axios({
+            method: 'get',
+            url: 'http://localhost:8080/api/v1/company/clear',
+            data: [],
+            withCredentials: true
         })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     render() {

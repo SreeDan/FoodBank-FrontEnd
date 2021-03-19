@@ -10,25 +10,14 @@ const sideDrawer = props => {
     }
     return (
         <nav className={drawerClasses}>
-            <ul>
-                <li>
-                    <a href="/companies">Food Banks</a>
-                </li>
-                <li>
-                    <a href="/filter">Filter</a>
-                </li>
-                <li>
-                    <a href="/location">Location Filtering</a>
-                </li>
-                <li>
-                    <a href="/dashboard">Dashboard</a>
-                </li>
-                <li>
-                    <a href="/login"><ToolbarLogin /></a>
-                </li>
-                {/*<li className="side-drawer-google-button">
-                    {<GoogleAuth />}
-                </li>*/}
+            <ul> {/* List of all the options */}
+                <li className="slide-drawer-name"><a href="/">Food Pantry Pickup</a></li>
+                <li><a href="/companies">Food Banks</a></li>
+                <li><a href="/filter">Filter</a></li>
+                <li><a href="/location">Location Filtering</a></li>
+                <li><a href="/bothfilter">Filter Location & Food</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login"><ToolbarLogin /></a></li>
             </ul>
         </nav>
     );

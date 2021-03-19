@@ -3,27 +3,35 @@
 }
 
 .filter-company {
+    height: 350px;
+    width: 400px;
     text-align: center;
-    margin: 2rem;
+    margin: 1rem;
     border-style: solid;
-    border-width: thin;
+    border-width: medium;
     color: rgb(226, 224, 224);
     padding: 1%
 }
 
 .filter-all-companies h1 {
     font-size: 20px;
+    list-style: none;
+}
+
+.filter-all-companies li {
+    display: inline-grid;
+    flex-wrap: nowrap;
 }
 
 .filter-company a {
-    color: #3c9dbd;
+    color: black;
     text-decoration: none;
 }
 
 .zero-results {
     background: #ADD8E6;
     position: fixed;
-    top: 105px;
+    top: 64px;
     left: 0;
     height: 100%;
     width: 100%;
@@ -41,15 +49,3 @@
 .zero-results.open {
     transform: translateY(0%);
 }
-
-/*@keyframes Slide_Up {
-    0% {
-        transform: translateY(100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
- */
-

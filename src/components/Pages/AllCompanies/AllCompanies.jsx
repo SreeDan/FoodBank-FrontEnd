@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './AllCompanies.css'
 import GoogleAuth from '../../Auth/GoogleAuth';
+import ReactTable from "react-table-6";
+import "react-table-6/react-table.css"
+import display from "../displayCompanies";
 
 class allCompanies extends Component {
     constructor(props) {
@@ -12,54 +15,29 @@ class allCompanies extends Component {
     }
 
     componentDidMount() {
-    axios.get('http://localhost:8080/api/v1/company/')
-    .then(response => {
-        this.setState({  posts: response.data  })
-        console.log(response)
-    })
-    .catch(error => {
-        console.log(error)
-    })
+        axios.get('http://localhost:8080/api/v1/company/') //  Gets all food banks
+        .then(response => {
+            this.setState({  posts: response.data  })
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     render() {
         const { posts } = this.state
-        return (    
+        return (
         <div className="all-companies">
             <GoogleAuth />
-            <main style={{marginTop: '80px'}}>
+            <main style={{marginTop: '64px'}}>
             <div className="header">
                 <h1>
                 Food Banks
                 </h1>
             </div>
             <hr />
-            <div className="company-block">
-                <h2>
-                {
-                    posts.length ?
-                    posts.map(post => 
-                    <div key={post.id} className="company">
-                        <a href={"/user/" + post.id}>
-                        <div className="image">
-                            <img src={post.image} alt="" width="300" height="200" />
-                        </div>
-                        <div className="name">
-                            {post.name}
-                        </div>
-                        <div className="phone">
-                            {post.phone}
-                        </div>
-                        <div className="address">
-                            {post.address.Street + ", " + post.address.City + ", " + post.address.State + " " + post.address.ZIP}
-                        </div>
-
-                        </a>
-                    </div>) :
-                    null
-                }
-                </h2>
-            </div>
+                {display(posts, 'zero-results', false)}
             </main>
         </div>
         )

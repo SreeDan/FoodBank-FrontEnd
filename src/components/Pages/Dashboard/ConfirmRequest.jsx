@@ -9,7 +9,7 @@ class ConfirmRequest extends Component {
         }
     }
     
-    confirmRequest () {
+    confirmRequest () { //  Sends a PUT request to the back end to accept the request
         axios({
             method: 'put',
             url: 'http://localhost:8080/api/v1/company/request',

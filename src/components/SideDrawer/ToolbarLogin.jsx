@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import DrawerToggle from '../SideDrawer/DrawerToggle';
+import DrawerTo1ggle from '../SideDrawer/DrawerToggle';
 import GoogleAuth from '../Auth/GoogleAuth';
 import GoogleAuthToolbar from '../Auth/GoogleAuthToolbar';
 import isEqual from 'lodash.isequal';
 import Cookies from 'universal-cookie';
 
 class ToolbarLogin extends Component {
-    showElement = () => {
+    showElement = () => { //  Login for the toolbar
         const cookies = new Cookies()
-
         if (isEqual(cookies.get('signedIn'), 'true') == true) {
-            return <button onClick={this.logout}>Logout</button>
+            return <button onClick={this.logout}>Sign Out</button>
         } else if (isEqual(cookies.get('gsignedIn'), 'true') == true) {
-            console.log("checkpoint google")
             return <GoogleAuthToolbar />
         }
         return <a href="/login">Sign In</a>

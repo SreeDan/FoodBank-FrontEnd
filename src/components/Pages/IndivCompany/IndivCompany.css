@@ -11,6 +11,11 @@
     margin: 0.5rem;
 }
 
+.alert-link {
+    text-decoration: none;
+    color: black;
+}
+
 .indiv-contact a {
     text-decoration: none;
     color: black;

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import Cookies from 'cookie'
 import { Redirect } from 'react-router-dom';
 import '../Login/Login.css'
 import Select from 'react-select';
 import {Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
-import isEqual from 'lodash.isequal';
 
 class Create extends Component {
     constructor(props) {
@@ -21,7 +19,7 @@ class Create extends Component {
             name: '',
             selectedOption: [],
             Options : [
-                { value: 'bank', label: 'FoodBank' },
+                { value: 'bank', label: 'Food Bank' },
                 { value: 'consumer', label: 'User' }
             ],
             billing: '',
@@ -35,7 +33,7 @@ class Create extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    add(item, type) {
+    add(item, type) { //  Updates the values of the text fields in the form
         if (type == 'email') {
             this.setState({ email: item.target.value })
         } else if (type == 'user') {
@@ -55,11 +53,11 @@ class Create extends Component {
         }
     }
 
-    handleOptionChange = (selectedOption) => {
+    handleOptionChange = (selectedOption) => { //  Change the selected option for the user type
         this.setState({ selectedOption })
     }
 
-    type = () => {
+    type = () => { //  Displays the alert that was the exception thrown on the back end
         const { open, severity, message } = this.state
         return (
             <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={this.handleClose} TransitionComponent={this.Transition} autoHideDuration={6000}>
@@ -70,7 +68,7 @@ class Create extends Component {
         )
     }
 
-    handleSubmit(event) {
+    handleSubmit(event) { //  Sends the POST request to the back end creating an account
         axios({
             method: 'post',
             url: 'http://localhost:8080/api/v1/company/create',
@@ -88,13 +86,11 @@ class Create extends Component {
             withCredentials: true
         })
         .then(response => {
-            if (response.request.response == 'true') {
+            if (response.request.response == 'true') { //  If the response is true, set the posts state to the response and redirect to the home page.
                 this.setState({ posts: response, redirect: true })
             }
-            console.log(response.request.response)
-            console.log(this.state.redirect)
         })
-            .catch((error) => {
+            .catch((error) => { //  This error is the APIException thrown on the backend
                 this.setState({ open: true, severity: 'error', message: error.response.data.message })
             })
         
@@ -102,18 +98,17 @@ class Create extends Component {
 
     render() {
         const { redirect, selectedOption, Options } = this.state
-        console.log(selectedOption)
         return (
             <div style={{margin: '80px'}}>
                 {
                     redirect && <Redirect to={{
                         pathname: '/',
-                    }}/>
+                    }}/> //  Redirects to the home page if redirect is true
                 }
                 {this.type()}
                 <div className="login-google-button">
                 </div>
-                <div className="form">
+                <div className="form"> {/* Form for creating account */}
                     <label for="femail">Email</label>
                     <input type="email" id="femail" name="email" placeholder="Email" onChange={(item) => this.add(item, 'email')}/>
                     <label for="fusername">Create Username</label>
@@ -134,7 +129,6 @@ class Create extends Component {
                     <input type="city" id="lcity" name="city" placeholder="City" onChange={(item) => this.add(item, 'city')} />
                     <input type="state" id="lstate" name="state" placeholder="State Abbreviation" onChange={(item) => this.add(item, 'state')} />
                     <input type="ZIP" id="lzip" name="zip" placeholder="Zip Code" onChange={(item) => this.add(item, 'ZIP')} />
-                    {/*<input type="submit" value="Login" onClick={this.handleSubmit} />*/}
                     <button onClick={this.handleSubmit} className="standard-create-button">Create Account</button>
                 </div>
             </div>

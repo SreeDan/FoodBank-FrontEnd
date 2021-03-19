@@ -57,10 +57,10 @@ class Home extends Component {
             {this.alert()}
             
             <main style={{ marginTop: '64px' }}>
-            <h1 className="phone-image">
+            <h1 className="phone-image"> {/* Displays the image which is displayed on a mobile screen */}
                 <img src={PhoneImage} alt="" height="475px" width="350px"/>
             </h1>
-            <h1 className="desktop-image">
+            <h1 className="desktop-image"> {/* Displays the image which is displayed on a computer screen */}
                 <img src={DesktopImage} alt="" height="500px" width="900"/>
             </h1>
             <div className="home-login">

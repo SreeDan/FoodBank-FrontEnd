@@ -6,6 +6,7 @@ import { Snackbar } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import isEqual from 'lodash.isequal';
 import './IndivCompany.css';
+import Cookies from 'universal-cookie';
 
 class indivCompany extends Component {
 	constructor(props) {
@@ -24,26 +25,26 @@ class indivCompany extends Component {
 		}
 	}
 
-	handleClick = () => {
+	handleClick = () => { //  Opens the Alert
 		this.setState({ open: true });
 	};
 	
-	handleClose = () => {
+	handleClose = () => { //  Closes the Alert
 		this.setState({ open: false });
 	};
 
-	Transition(props) {
+	Transition(props) { //  Transition for the alert
 		return <Slide direction="up" {...props} />;
 	}
 
-	type = () => {
+	type = () => { //  Displays the type of alert
 		const { open } = this.state
 		if (isEqual(this.state.severity, 'success') === true) {
 			return (
 				<Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={this.handleClose} TransitionComponent={this.Transition} autoHideDuration={6000}>
 					<Alert onClose={this.handleClose} severity={this.state.severity}>
 						<AlertTitle>Success — your request has been sent!</AlertTitle>
-						{this.state.message} <strong>here</strong>
+						{this.state.message} <a href="/dashboard" className="alert-link"><strong>here</strong></a>
   					</Alert>
 				</Snackbar>
 			)
@@ -58,21 +59,27 @@ class indivCompany extends Component {
 		}
 	}
 
-	onButtonClickHandler = () => {
+	onButtonClickHandler = () => { //  Displays the request component
 		this.setState({ showSearch: true, showPost: true })
 	}
 
-	handleOptionsChange = (selectedOptions) => {
+	handleOptionsChange = (selectedOptions) => { //  Changes the selected options
 		this.setState({ selectedOptions })
 	}
 
-	sendRequest(userId, food) {
+	sendRequest(userId, food) { //  Sends the request to the database and checks to see if the user is logged in
+		const cookies = new Cookies()
+		if (isEqual(cookies.get('signedIn'), 'false') === true && isEqual(cookies.get('gsignedIn'), 'false') === true) {
+			this.setState({ severity: 'error', message: 'Please log in to form a request' })
+			this.handleClick()
+			return
+		}
 		this.food = []
 		if (isEqual(food, null) === false && food.length > 0) {
 			for (let i = 0; i < food.length; i++) {
 				this.food.push(food[i]['label'])
 			}
-			axios({
+			axios({ //  Request is sent and handles successes and errors
 				method: 'post',
 				url: 'http://localhost:8080/api/v1/company/request',
 				data: {
@@ -97,16 +104,16 @@ class indivCompany extends Component {
 			this.setState({ severity: 'info', message: 'Select a food' })
 			this.handleClick()
 		}
-		//this.handleClick() is called individually because the 'info' alert would show up and then change to the 'success' alert
 	}
 
-	componentDidMount() {
+	componentDidMount() { //  Gets the food banks information
 		const { match: { params } } = this.props
 		axios.get(`http://localhost:8080/api/v1/company/${params.userId}`)
 			.then(response => {
 				this.setState({ posts: response.data })
-				this.setState({ options: response['data'][0]['availableFood'] })
-				console.log(response.data)
+				if (response['data'][0]['availableFood']) {
+					this.setState({options: response['data'][0]['availableFood']})
+				}
 			})
 			.catch(error => {
 				console.log(error)
@@ -123,7 +130,7 @@ class indivCompany extends Component {
 							{
 								posts.length ?
 									posts.map(post =>
-										<div key={post.id} className="indiv-info">
+										<div key={post.id} className="indiv-info"> {/* First half of the screen is the food banks information */}
 											<div className="indiv-name">
 												<h2>{post.name}</h2>
 											</div>
@@ -155,7 +162,7 @@ class indivCompany extends Component {
 										<div style={{ marginTop: '20px' }} className="indiv-post">
 
 											<ul className="indiv-post-list">
-												<li>
+												<li> {/* Shows the request component (Search bar and send button) */}
 													{showSearch &&
 														<Select
 															isMulti

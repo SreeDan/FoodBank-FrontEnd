@@ -6,9 +6,9 @@ import Token from './GToken';
 import GoogleButton from 'react-google-button';
 import Cookies from 'universal-cookie';
 import DeleteToken from './DeleteToken';
+import axios from "axios";
 
 class GoogleAuth extends Component {
-    
     constructor(props) {
         super(props)
         this.state = {
@@ -19,7 +19,8 @@ class GoogleAuth extends Component {
             severity: '',
             message: '',
             deleteCookie: false,
-            signOutRedirect: false
+            signOutRedirect: false,
+            key: ''
         }
         try {
             this.props.ableToRedirect = this.state.ableToRedirect
@@ -27,18 +28,12 @@ class GoogleAuth extends Component {
             console.log(this.state.open)
         } catch (error)  {}
     }
-  
-    update() {
-        this.forceUpdate()
-    }
 
     componentDidMount() {
-        const cookies = new Cookies()
-        
-        window.gapi.load('client:auth2', () => {
+        window.gapi.load('client:auth2', () => { //  Loads the client
             window.gapi.client
             .init({
-                clientId: 'your-client-id',
+                clientId: '892653406922-k0jle74fkvr92vs2ju7a2e7gi6h92738.apps.googleusercontent.com',
                 scope: 'email',
             })
             .then(() => {
@@ -48,16 +43,16 @@ class GoogleAuth extends Component {
                 
             });
         });
-        }
+    }
   
-    handleAuthChange = () => {
+    handleAuthChange = () => { //  Handle whether iSignedIn is true or false
         const cookies = new Cookies()
         cookies.set("gsignedIn", this.auth.isSignedIn.get(), {path: '/'})
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
         this.setState({ redirect: this.auth.isSignedIn.get() })
     };
   
-    handleSignIn = () => {
+    handleSignIn = () => { //  Sets the gsignedIn cookie to true and logs the user in
         const cookies = new Cookies()
         cookies.set('gsignedIn', true, {path: '/'})
         this.auth.signIn().then(() => {
@@ -66,7 +61,7 @@ class GoogleAuth extends Component {
         this.setState({ redirect: true, open: true, severity: 'success', message: 'You have been logged in!' })
     };
     
-    redirect() {
+    redirect() { //  Redirects to the home page
         const { signOutRedirect } = this.state
         if (signOutRedirect) {
             this.setState({ signOutRedirect: false })
@@ -74,18 +69,18 @@ class GoogleAuth extends Component {
         }
     }
 
-    handleSignOut = () => {
+    handleSignOut = () => { //  Sets the gsignedIn cookie to false and sets states to true
         const cookies = new Cookies()
         cookies.set('gsignedIn', false, {path: '/'})
-        this.setState({ deleteCookie: true })
         this.setState({ signOutRedirect: true })
         this.auth.signOut()
         this.forceUpdate()
+        return <DeleteToken/>
     };
   
-    renderAuthButton = () => {
+    renderAuthButton = () => { //  Show the Sign in or Sign out button
         if (this.state.isSignedIn === null) {
-        return <div>error</div>;
+        return <div></div>;
         } else if (this.state.isSignedIn) {
             return (
             <div>
@@ -98,26 +93,17 @@ class GoogleAuth extends Component {
         }
     }
 
-    delete() {
-        const {deleteCookie} = this.state
-        if (deleteCookie) {
-            this.setState({ deleteCookie: false })
-            return <DeleteToken />
-        }
-    }
-
     render() {
         const { open, severity, message, deleteCookie } = this.state
         return (
             <div className="login-button">
                 {this.renderAuthButton()}
-                {   
+                {   //  Redirects to the homepage
                     this.props.ableToRedirect && this.state.isSignedIn && <Redirect to={{
                         pathname: '/',
                         state: { open: open, severity: severity, message: message, refresh: true }
                     }} />
                 }
-                {this.delete()}
                 {this.redirect()}
             </div>
         )

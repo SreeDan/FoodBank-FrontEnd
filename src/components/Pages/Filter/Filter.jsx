@@ -13,31 +13,30 @@ class Filter extends Component {
             { value: 'availableFood', label: 'Available Food' },
             { value: 'neededFood', label: 'Needed Food' },
             { value: 'both', label: 'Both' }
-
         ],
         food: [],
         type: ""
     }
 
-    handleOptionChange = (selectedOption) => {
+    handleOptionChange = (selectedOption) => { //  Change the selected option for the food type
         this.setState({ selectedOption })
         try {
             this.state.type = selectedOption['value']
         } catch (e) {}
     }
 
-    handleOptionsChange = (selectedOptions) => {
+    handleOptionsChange = (selectedOptions) => { //  Change the selected options for the food
         this.setState({ selectedOptions })
     }
 
-    componentDidMount() {
+    componentDidMount() { //  Get all the food which could be used in the filter.
         axios.get('http://localhost:8080/api/v1/company/food')
-        .then(response => {
-            this.setState({  foodOptions: response.data  })
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(response => {
+                this.setState({  foodOptions: response.data  })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     render() {
@@ -45,7 +44,7 @@ class Filter extends Component {
         {
             this.state.food = []
             if (selectedOptions != null) {
-                for(let i = 0; i < selectedOptions.length; i++ ) {
+                for(let i = 0; i < selectedOptions.length; i++ ) { //  Updating the food state with the selected options
                     food.push(selectedOptions[i]['label'])
                 }
             }
@@ -54,7 +53,7 @@ class Filter extends Component {
             <React.Fragment>
             <div>
                 <main style={{marginTop: '64px'}}>
-                    <div className="type-search">
+                    <div className="type-search"> {/* Choose what type of food to filter by */}
                         <Select
                             value={selectedOption}
                             onChange={this.handleOptionChange} 
@@ -62,7 +61,7 @@ class Filter extends Component {
                             placeholder="Select type..." 
                         />
                     </div>
-                    <div className="search">  
+                    <div className="search">  {/* Choose what food to filter */}
                         <Select
                             isMulti
                             value={selectedOptions}
@@ -75,11 +74,8 @@ class Filter extends Component {
                         <p>Choose type then food</p>
                     </div>
                     <div className="filter-results">
-                        <FilterResults type={type} food={food} />
+                        <FilterResults type={type} food={food} /> {/* Returns the filtered results */}
                     </div>
-                    
-                    
-                    
                 </main>
             </div>
             </React.Fragment>

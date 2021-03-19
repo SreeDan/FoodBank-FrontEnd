@@ -14,19 +14,20 @@ import Create from './components/Pages/Create/CreateAccount';
 import Location from './components/Pages/Location/Location';
 import EditProfile from "./components/Pages/Dashboard/Edit/EditProfile";
 import Setup from './components/Pages/Setup/Setup'
+import BothFilter from "./components/Pages/BothFilter/BothFilter";
 
 class App extends Component {
     state = {
         sideDrawerOpen: false
     };
     
-    drawerToggleClickHandler = () => {
+    drawerToggleClickHandler = () => { //  Toggles the side drawer on a mobile view
         this.setState((prevState) => {
         return {sideDrawerOpen: !prevState.sideDrawerOpen};
         });
     };
 
-    backdropClickHandler = () => {
+    backdropClickHandler = () => { //  Toggles the backdrop when opening the side drawer
         this.setState({sideDrawerOpen: false})
     };
 
@@ -42,7 +43,8 @@ class App extends Component {
             <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
             <SideDrawer show={this.state.sideDrawerOpen} />
             {backdrop}
-            
+
+            {/* Route paths to other pages */}
             <Route path={"/"} exact component={Home}/>
             <Route path={"/companies"} exact thing={'asd'} component={AllCompanies} />
             <Route path={"/user/:userId"} exact component={IndivCompany} />
@@ -54,6 +56,7 @@ class App extends Component {
             <Route path={"/location"} exact component={Location} />
             <Route path={"/dashboard/edit"} exact component={EditProfile} />
             <Route path={"/setup"} exact component={Setup} />
+            <Route path={"/bothfilter"} exact component={BothFilter} />
         </div>
         </Router>
         );
