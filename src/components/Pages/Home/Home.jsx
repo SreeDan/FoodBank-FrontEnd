@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 import Slide from '@material-ui/core/Slide';
 import Login from '../Login/Login'
 import PhoneImage from '../../../Resources/FPPProcessPhone.PNG' 
-import DesktopImage from '../../../Resources/FPPProcessDesktop.png'
+import DesktopImage from '../../../Resources/FPPProcessDesktop-NoBorder.png'
 import './Home.css'
 
 class Home extends Component {
@@ -57,15 +57,17 @@ class Home extends Component {
             {this.alert()}
             
             <main style={{ marginTop: '64px' }}>
-            <h1 className="phone-image"> {/* Displays the image which is displayed on a mobile screen */}
-                <img src={PhoneImage} alt="" height="475px" width="350px"/>
-            </h1>
-            <h1 className="desktop-image"> {/* Displays the image which is displayed on a computer screen */}
-                <img src={DesktopImage} alt="" height="500px" width="900"/>
-            </h1>
-            <div className="home-login">
-                <Login />
-            </div>
+                <h1 className="steps">Simple Steps to Request Food</h1>
+                <h1 className="phone-image"> {/* Displays the image which is displayed on a mobile screen */}
+                    <img src={PhoneImage} alt="" height="475px" width="350px"/>
+                </h1>
+                <h1 className="desktop-image"> {/* Displays the image which is displayed on a computer screen */}
+                    <img src={DesktopImage} alt="" height="475px" width="1200x"/>
+                </h1>
+                <h1 className="disclaimer">Please Allow this Website to Use Your Location for the Best User Experience</h1>
+                <div className="home-login">
+                    <Login />
+                </div>
             </main>
         </div>
         )

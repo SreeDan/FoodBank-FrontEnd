@@ -48,6 +48,7 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 6px;
 }
 
 .donate-button {
@@ -61,11 +62,13 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 6px;
 }
 
 .donate-button a {
     text-decoration: none;
     color: white;
+    border-radius: 6px;
 }
 
 .indiv-post-list {
@@ -99,6 +102,11 @@
     font-size: 16px;
     margin: 4px 4px;
     cursor: pointer;
+    border-radius: 6px;
+}
+
+.indiv-button-list button:hover {
+    background-color: #2e9cbeef;
 }
 
 @keyframes fadein {

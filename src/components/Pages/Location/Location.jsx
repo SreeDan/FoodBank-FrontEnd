@@ -11,13 +11,14 @@ class Location extends Component {
         this.state = {
             geolocation: false,
             able: false,
-            lat: 0,
-            lng: 0,
+            lat: 40.202575,
+            lng: -75.34725,
             stateSubmit: false,
             options: states,
-            selectedOption: [],
+            selectedStateOption: [],
             posts: [],
-            resultsClasses: 'zero-results'
+            resultsClasses: 'zero-results',
+            displayOptions: true
         }
 
     }
@@ -34,44 +35,74 @@ class Location extends Component {
         }
     }
 
-    handleOptionChange = (selectedOption) => {
-        this.setState({ selectedOption })
+    handleStateChange = (selectedStateOption) => {
+        this.setState({ selectedStateOption })
     }
 
     displayAlert() { //  Displays the select bar or the alert depending on the user's location setting
-        const { lat, lng, geolocation, able, stateSubmit, selectedOption, options } = this.state
+        const { displayOptions, geolocation, able, stateSubmit, selectedStateOption, options } = this.state
         if (!geolocation && able) {
             return (
-            <div className="alert">
-                Please Enable Location Settings For This Website
-            </div>
-            )
-        } else if (!stateSubmit) {
-            return (
-                <div className="parent-state-search">
-                    <div className="state-search">
-                        <Select
-                            className="state-select"
-                            value={selectedOption}
-                            onChange={this.handleOptionChange}
-                            options={options}
-                            placeholder="Choose a State..."
-                        />
+                <div>
+                    <div className="alert">
+                        Please Enable Location Settings For This Website
+                        <button onClick={() => this.sendDefaultLocation()} className="alert-button">Try with a Preset Default Location</button>
                     </div>
-                    <button className="update-state" onClick={() => this.send(lat, lng, selectedOption)}>Search</button>
                 </div>
             )
+        } else if (!stateSubmit) {
+            if (displayOptions) {
+                return (
+                    <div className="parent-state-search" style={{marginTop: '80px'}}>
+                        <div className="state-search">
+                            <Select
+                                className="state-select"
+                                value={selectedStateOption}
+                                onChange={this.handleStateChange}
+                                options={options}
+                                placeholder="Choose a State..."
+                            />
+                        </div>
+                        <button className="update-state" onClick={() => this.handleSubmit()}>Search</button>
+                    </div>
+                )
+            } else {
+                return <div></div>
+            }
         }
     }
 
-    send(lat, lng, selectedOption) { //  Sends a POST request to the back end which returns a list of food banks
+    sendDefaultLocation() {
+        axios({ //  Sends the POST request to the back end and get the response of which food banks which meet the parameters
+            method: 'post',
+            url: 'http://localhost:8080/api/v1/company/location',
+            data: {
+                lat: this.state.lat,
+                lng: this.state.lng,
+                state: 'PA',
+                default: true
+            }
+        })
+            .then(response => {
+                this.setState({ posts: response.data, geolocation: true, resultsClasses: 'zero-results', displayOptions: false })
+            })
+            .catch(error => {
+                if (error.response.data.message == 'None') {
+                    this.setState({ resultsClasses: 'zero-results open' } )
+                }
+            })
+    }
+
+    handleSubmit() { //  Sends a POST request to the back end which returns a list of food banks
+        const { lat, lng, selectedStateOption } = this.state
         axios({
             method: 'post',
             url: 'http://localhost:8080/api/v1/company/location',
             data: {
                 lat: lat,
                 lng: lng,
-                state: selectedOption['value']
+                state: selectedStateOption['value'],
+                default: false
             }
         })
             .then(response => {

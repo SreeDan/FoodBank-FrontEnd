@@ -16,6 +16,8 @@ class Requests extends Component {
             receiverName: '',
             food: [],
             date: '',
+            originalDate: '',
+            original: false,
             status: '',
             userType: '',
             posts: []
@@ -26,9 +28,9 @@ class Requests extends Component {
         this.setState({ modalIsOpen: bool })
     }
 
-    test = (post) => {
+    row = (post) => { //  Sets each row for the table
         let message = ''
-        this.setState({ message: message, requestId: post['requestId'], requesterName: post['requesterName'], receiverName: post['receiverName'], food: post['food'], date: post['date'], status: post['status'], modalIsOpen: true })
+        this.setState({ message: message, requestId: post['requestId'], requesterName: post['requesterName'], receiverName: post['receiverName'], food: post['food'], date: post['date'], originalDate: post['date'], status: post['status'], modalIsOpen: true })
     }
 
     componentDidMount() { //  Gets all requests
@@ -65,7 +67,7 @@ class Requests extends Component {
             const { requesterName, receiverName, food, date, status } = post
             let name = ''
             return (
-                <tr key={post.requestId} onClick={() => this.test(post)}>
+                <tr key={post.requestId} onClick={() => this.row(post)}>
                     {this.name(requesterName, receiverName)}
                     <td>
                         {food.map((value, index) => {
@@ -80,18 +82,20 @@ class Requests extends Component {
     }
 
     confirmRequest(requestId, date) { //  Changes the status of the request and sends a request to the server
-        console.log(this.props.bank)
+        if (this.state.date === this.state.originalDate) {
+            this.setState({ original: true })
+        }
         let status = 'pending'
         if (this.props.bank == 'bank') {
             status = 'accepted'
         }
-        console.log(date)
         axios({
             method: 'put',
             url: 'http://localhost:8080/api/v1/company/request',
             data: {
                 status: status,
                 date: date,
+                original: this.state.original,
                 requestId: requestId
             }
         })
@@ -104,8 +108,8 @@ class Requests extends Component {
     }
 
     handleDate = (date) => { //  Sets the date
-        this.setState({date: date._d})
-     };
+        this.setState({date: date._d.toLocaleString()})
+    };
 
     modalHeader = (requesterName, receiverName) => { //  Changes the text based on type of account
         if (this.props.bank == 'bank') {
@@ -144,7 +148,7 @@ class Requests extends Component {
                     <p>
                         {this.modalIntroText()} <br/>
                         <ul className="dashboard-modal-food">
-                            {food.map((value, index) => {
+                            {food.map((value, index) => { //  Show the food requested on the modal
                                 return <li key={index}>{value}</li>
                             })}
                         </ul>

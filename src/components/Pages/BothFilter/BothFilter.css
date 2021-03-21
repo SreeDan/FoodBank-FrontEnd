@@ -1,15 +1,15 @@
-.parent-state-search {
+.both-parent-state-search {
     display: flex;
 }
 
-.state-search {
+.both-state-search {
     position: fixed;
     left: 29%;
     width: 33%;
     z-index: 898;
 }
 
-.update-state {
+.both-update-state {
     left: 65%;
     position: fixed;
     background-color: #2e9abe;
@@ -42,4 +42,9 @@
 .both-filter-company li {
     display: inline-grid;
     flex-wrap: nowrap;
+}
+
+.alert-button:hover,
+.both-update-state:hover {
+    background-color: #2e9cbeef;
 }

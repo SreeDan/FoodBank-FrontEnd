@@ -9,10 +9,21 @@
     color: white;
     font-size: xxx-large;
     line-height: 100%;
-    display: flex;
+    display: inline-grid;
     justify-content: center;
     align-items: center;
     z-index: 900;
+}
+
+.alert-button {
+    background-color: gray;
+    color: white;
+    height: 10%;
+    width: 40%;
+    font-size: x-large;
+    text-align: center;
+    transform: translateX(75%);
+    height: 75px;
 }
 
 .parent-state-search {
@@ -23,6 +34,7 @@
     position: fixed;
     left: 29%;
     width: 33%;
+    z-index: 900;
 }
 
 .update-state {
@@ -39,4 +51,10 @@
     font-size: 16px;
     margin: 0px 2px;
     cursor: pointer;
+    z-index: 900;
+}
+
+.alert-button:hover,
+.update-state:hover {
+    background-color: #2e9cbeef;
 }

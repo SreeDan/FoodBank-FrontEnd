@@ -7,6 +7,7 @@ import Slide from '@material-ui/core/Slide';
 import isEqual from 'lodash.isequal';
 import './IndivCompany.css';
 import Cookies from 'universal-cookie';
+import {Redirect} from "react-router-dom";
 
 class indivCompany extends Component {
 	constructor(props) {
@@ -21,7 +22,9 @@ class indivCompany extends Component {
 			open: false,
 			severity: '',
 			alertTitle: '',
-			message: ''
+			message: '',
+			id: 0,
+			redirectDonate: false
 		}
 	}
 
@@ -106,13 +109,17 @@ class indivCompany extends Component {
 		}
 	}
 
+	donate = () => {
+		this.setState({ redirectDonate: true })
+	}
+
 	componentDidMount() { //  Gets the food banks information
 		const { match: { params } } = this.props
 		axios.get(`http://localhost:8080/api/v1/company/${params.userId}`)
 			.then(response => {
 				this.setState({ posts: response.data })
 				if (response['data'][0]['availableFood']) {
-					this.setState({options: response['data'][0]['availableFood']})
+					this.setState({ options: response['data'][0]['availableFood'], id: response['data'][0]['id'] })
 				}
 			})
 			.catch(error => {
@@ -121,9 +128,10 @@ class indivCompany extends Component {
 	}
 
 	render() {
-		const { posts, selectedOptions, options, showSearch, showPost } = this.state
+		const { redirectDonate, id, posts, selectedOptions, options, showSearch, showPost } = this.state
 		return (
 			<div className="indiv-companies">
+				{redirectDonate && <Redirect to={"/user/" + id + "/donation"} />}
 				<main style={{ marginTop: '80px' }}>
 					<div className="indiv-header">
 						<h1>  {/*color: #2e9abe;*/}
@@ -156,7 +164,7 @@ class indivCompany extends Component {
 												<button onClick={this.onButtonClickHandler} className="request-button">Request</button>
 											</li>
 											<li key={2}>
-												<button className="donate-button"><a neededFood={post.neededFood} href={"/user/" + post.id + "/donation"}>Donation List</a></button>
+												<button className="donate-button" onClick={this.donate}>Donation List</button>
 											</li>
 										</ul>
 										<div style={{ marginTop: '20px' }} className="indiv-post">

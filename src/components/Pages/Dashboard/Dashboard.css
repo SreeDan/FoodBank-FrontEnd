@@ -61,7 +61,10 @@
     display: none;
 }
 
-button:hover {
+.dashboard-request-button:hover,
+.dashboard-available-button:hover,
+.edit-button:hover,
+.button-block button:hover{
     background-color: #2e9cbeef;
 }
 

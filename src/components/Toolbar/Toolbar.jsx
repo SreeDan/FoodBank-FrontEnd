@@ -6,7 +6,6 @@ import isEqual from 'lodash.isequal';
 import Cookies from 'universal-cookie';
 import './Toolbar.css';
 import axios from 'axios';
-import * as path from "path";
 
 class Toolbar extends Component {
     constructor(props) {

@@ -20,3 +20,7 @@
     margin: 0px 2px;
     cursor: pointer;
 }
+
+.update-send:hover {
+    background-color: #2e9cbeef
+}
