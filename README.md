@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Foodbank-FrontEnd
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+* [ Inspiration. ](#inspiration)
+* [ About the Application. ](#about-the-application)
+* [ Front End Specifics. ](#front-end-specifics)
+* [ Demo. ](#demo)
+    * [ Things Missing from Demo. ](#things-missing-from-the-demo)
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Many of the comments made in the code was made for a competition.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Inspiration
+The COVID-19 pandemic has brought immense suffering to a lot of people. Many have lost their jobs and livelihood. 
+Long lines have been reported at food banks across the nation due to this situation.
 
-### `npm test`
+As this situation is unfolding across the country, I knew it would be possible to help both food requesters and food
+banks effectively manage the food distribution process. I researched to see if there were any applications to solve this
+problem, but I only saw a few apps that catered to food banks. This inspired me to create an application that could help
+both food seekers and food banks avoid long lines and save time. The concept and the platform that was created can be
+used to help reduce wait times in various other scenarios where minimal contact is desired and where the situation
+limits the number of people at any given time to minimize COVID-19 risk. My broader goal from this inspiration is to use
+this app to simplify the daily hardship and bring a sense of control to the lives of the people during and post pandemic.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About the Application
+My app is trying to bridge food banks and people that need food. The app will enable people to select a food bank, choose
+food items, and a time that is convenient to pick up the items. This will also reduce the length of lines as food requesters
+will be pre-scheduled, and the food bank will have time to plan for food distribution. When the food requester provides
+a time slot, the food bank can either accept the time slot or propose a new slot if the pickup volume for that time is high.
+An email alert is sent to the requester with the pick up details after acceptance of the request. At the allotted time,
+food can be picked up without waiting. Depending on the volume of requests the food bank can plan for the number of
+volunteers needed to staff the operations, request food donations, or request additional help. This visibility can make the food banks more efficient.
 
-### `npm run build`
+The requester can create an account through which they can manage and track food requests. This entire process will help
+save time and avoid long lines, especially during extreme weather conditions. In addition, social distancing can be
+enforced by only allowing a specific number of people to be requesting food at the same time.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Front End Specifics
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The front end was built using ReactJS and hosted it on Github Sites. It interacted with the FoodBank-BackEnd repository for data.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Demo
+[![Food Pantry Pickup Demo](https://res.cloudinary.com/marcomontalbano/image/upload/v1637882133/video_to_markdown/images/youtube--XiUyRUu7idQ-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/XiUyRUu7idQ "Food Pantry Pickup Demo")
 
-### `npm run eject`
+### Things missing from the Demo
+What isn't shown is the standard log in system. You can log in with a standard user generated login. This can be made 
+from the "Create An Account" tab.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+After the making of the video, I added the ability to filter food banks based on your location; with this came another
+way to filter food banks combining filtering by food and location. This feature uses Google's
+Map API. The colors changed a little to a darker blue.
